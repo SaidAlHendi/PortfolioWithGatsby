@@ -1108,3 +1108,15 @@ Sidebar Animation
     opacity: 1;
   }
 }
+input:-webkit-autofill {
+  background-color: black/80 !important;
+  -webkit-text-fill-color: rgb(133, 29, 29) !important;
+}
+@layer utilities {
+  input:-webkit-autofill {
+    background-color: rgb(177, 10, 10) / 80 !important; /* z. B. bg-gray-900 */
+    color: rgb(255, 10, 10) / 80 !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgb(221, 46, 46) / 80 inset !important;
+    -webkit-text-fill-color: rgb(245, 49, 49) / 80 !important;
+  }
+}
