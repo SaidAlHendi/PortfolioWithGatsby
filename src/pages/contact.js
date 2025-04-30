@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { useForm } from '@formspree/react'
 import DynamicContactForm from '../components/DynamicContactForm'
 import { motion } from 'framer-motion'
+import { pageAnimation } from '../animation/animation'
 
 export default function Home() {
   const headingRef = useRef()
@@ -356,49 +357,58 @@ export default function Home() {
   }
 
   return (
-    <main className='relative min-h-screen overflow-hidden '>
+    <motion.section
+      exit='exit'
+      variants={pageAnimation}
+      initial='hidden'
+      animate='show'
+    >
       <motion.div
         className='fixed top-0 left-0 w-full h-full pointer-events-none z-50 rounded-full'
         variants={cursorVariants}
         animate={cursorVariant}
       />
-      <div className='absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-[#1b1b1b] to-[#1b1b1b1]'></div>
+      <main className='relative min-h-screen overflow-hidden '>
+        <div className='absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-[#1b1b1b] to-[#1b1b1b1]'></div>
 
-      {/* Main content */}
-      <div className='container relative z-10 mx-auto px-4 py-12'>
-        <div
-          className={` gap-12 md:grid-cols-2 ${state.succeeded ? '' : 'grid'}`}
-        >
+        {/* Main content */}
+        <div className='container relative z-10 mx-auto px-4 py-12'>
           <div
-            className={`flex flex-col justify-center ${
-              state.succeeded ? 'hidden' : ''
+            className={` gap-12 md:grid-cols-2 ${
+              state.succeeded ? '' : 'grid'
             }`}
           >
-            <h1
-              ref={headingRef}
-              className='mb-6 text-5xl font-bold leading-tight md:text-6xl'
+            <div
+              className={`flex flex-col justify-center ${
+                state.succeeded ? 'hidden' : ''
+              }`}
             >
-              <span
-                ref={transformRef}
-                className='block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-purple-500 relative'
-                style={{
-                  transformStyle: 'preserve-3d',
-                  perspective: '1000px',
-                  cursor: 'pointer',
-                  textShadow: '0 5px 15px rgba(0,0,0,0.3)',
-                }}
+              <h1
+                ref={headingRef}
+                className='mb-6 text-5xl font-bold leading-tight md:text-6xl'
               >
-                <SplitText text=' Get in Touch' />
-              </span>
-            </h1>
-            <p ref={subheadingRef} className='digital-presence block text-xl'>
-              Feel free to contact me by submitting the form below and I will
-              get back to you as soon as possible.
-            </p>
+                <span
+                  ref={transformRef}
+                  className='block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-purple-500 relative'
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    perspective: '1000px',
+                    cursor: 'pointer',
+                    textShadow: '0 5px 15px rgba(0,0,0,0.3)',
+                  }}
+                >
+                  <SplitText text=' Get in Touch' />
+                </span>
+              </h1>
+              <p ref={subheadingRef} className='digital-presence block text-xl'>
+                Feel free to contact me by submitting the form below and I will
+                get back to you as soon as possible.
+              </p>
+            </div>
+            <DynamicContactForm handleSubmit={handleSubmit} state={state} />
           </div>
-          <DynamicContactForm handleSubmit={handleSubmit} state={state} />
         </div>
-      </div>
-    </main>
+      </main>
+    </motion.section>
   )
 }
